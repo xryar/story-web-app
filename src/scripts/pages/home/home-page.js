@@ -1,4 +1,9 @@
+import HomePresenter from "./home-page-presenter";
+import * as StoriesAPI from "../../data/api";
+
 export default class HomePage {
+  #presenter;
+
   async render() {
     return `
       <section class="container">
@@ -14,5 +19,22 @@ export default class HomePage {
 
   async afterRender() {
     // Do your job here
+    this.#presenter = new HomePresenter({
+      view: this,
+      model: StoriesAPI,
+    });
+
+    await this.#presenter.initialStories();
   }
+
+  populateStoriesList(message, stories) {
+    if (stories.length <= 0) {
+      this.populateStoriesListEmpty();
+      return;
+    }
+
+    const html = stories.reduce((acc, story) => {})
+  }
+
+  populateStoriesListEmpty() {}
 }
