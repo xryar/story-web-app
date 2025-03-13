@@ -1,5 +1,3 @@
-import {getAllStories} from "../../data/api";
-
 export default class HomePresenter {
     #view;
     #model;
