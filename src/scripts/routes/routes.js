@@ -1,5 +1,4 @@
 import HomePage from '../pages/home/home-page';
-import AboutPage from '../pages/about/about-page';
 import {checkAuthenticatedRoute, checkUnauthenticatedRouteOnly} from "../utils/auth";
 import LoginPage from "../pages/auth/login/login-page";
 
