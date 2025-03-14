@@ -1,5 +1,11 @@
 import HomePresenter from "./home-page-presenter";
 import * as StoriesAPI from "../../data/api";
+import {
+  generateLoaderAbsoluteTemplate,
+  generateReportsListErrorTemplate,
+  generateStoriesListEmptyTemplate,
+  generateStoryItemTemplate
+} from "../../template";
 
 export default class HomePage {
   #presenter;
@@ -33,8 +39,40 @@ export default class HomePage {
       return;
     }
 
-    const html = stories.reduce((acc, story) => {})
+    const html = stories.reduce((acc, story) => {
+      const coordinate = {
+        latitude: story.latitude,
+        longitude: story.longitude,
+      }
+
+      console.log(coordinate);
+
+      return acc.concat(
+          generateStoryItemTemplate({
+            ...story,
+            description: story.description,
+          })
+      );
+    }, '')
+
+    document.getElementById('stories-list').innerHTML = `
+      <div class="stories-list">${html}</div>
+    `;
   }
 
-  populateStoriesListEmpty() {}
+  populateStoriesListEmpty() {
+    document.getElementById('stories-list').innerHTML = generateStoriesListEmptyTemplate();
+  }
+
+  populateStoriesListError(message) {
+    document.getElementById('stories-list').innerHTML = generateReportsListErrorTemplate(message);
+  }
+
+  showLoading() {
+    document.getElementById('stories-list-loading-container').innerHTML = generateLoaderAbsoluteTemplate();
+  }
+
+  hideLoading() {
+    document.getElementById('stories-list-loading-container').innerHTML = '';
+  }
 }
