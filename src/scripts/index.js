@@ -5,9 +5,10 @@ import App from './pages/app';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const app = new App({
-    content: document.querySelector('#main-content'),
-    drawerButton: document.querySelector('#drawer-button'),
-    navigationDrawer: document.querySelector('#navigation-drawer'),
+    content: document.getElementById('main-content'),
+    drawerButton: document.getElementById('drawer-button'),
+    navigationDrawer: document.getElementById('navigation-drawer'),
+    skipLinkButton: document.getElementById('skip-link'),
   });
   await app.renderPage();
 
@@ -16,6 +17,3 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-export function setupSkipToContent(element, mainContent) {
-  element.addEventListener('click', () => mainContent.focus());
-}

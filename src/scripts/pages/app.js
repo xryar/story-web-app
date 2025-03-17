@@ -1,7 +1,12 @@
 import routes from '../routes/routes';
-import { getActiveRoute } from '../routes/url-parser';
-import {setupSkipToContent} from "../index";
-import {getAccessToken} from "../utils/auth";
+import { getActiveRoute } from '../routes/url-parser';;
+import {getAccessToken, getLogout} from "../utils/auth";
+import {
+  generateAuthenticatedNavigationListTemplate,
+  generateMainNavigationListTemplate,
+  generateUnauthenticatedNavigationListTemplate
+} from "../template";
+import {setupSkipToContent, transitionHelper} from "../utils";
 
 class App {
   #content = null;
@@ -43,22 +48,45 @@ class App {
 
   #setupNavigationList() {
     const isLogin = !!getAccessToken();
-    const navListMain = this.#navigationDrawer.children.namedItem('navlist-main');
-    const navList = this.#navigationDrawer.children.namedItem('navlist');
+    const navList = this.#navigationDrawer.children.namedItem('nav-list');
 
     if (!isLogin) {
-      navListMain.innerHTML = '';
       navList.innerHTML = generateUnauthenticatedNavigationListTemplate();
       return;
     }
+
+    navList.innerHTML = generateAuthenticatedNavigationListTemplate();
+
+    const logoutButton = document.getElementById('logout-button');
+    logoutButton.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      if (confirm('Apakah anda yakin ingin keluar?')) {
+        getLogout();
+
+        location.hash = '/login';
+      }
+    });
   }
 
   async renderPage() {
     const url = getActiveRoute();
-    const page = routes[url];
+    const route = routes[url];
 
-    this.#content.innerHTML = await page.render();
-    await page.afterRender();
+    const page = route();
+
+    const transition = transitionHelper({
+      updateDOM: async () => {
+        this.#content.innerHTML = await page.render();
+        await page.afterRender();
+      }
+    });
+
+    transition.ready.catch(console.error);
+    transition.updateCallbackDone.then(() => {
+      scrollTo({ top: 0, behavior: 'instant' });
+      this.#setupNavigationList();
+    })
   }
 }
 

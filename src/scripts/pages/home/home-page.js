@@ -2,8 +2,8 @@ import HomePresenter from "./home-page-presenter";
 import * as StoriesAPI from "../../data/api";
 import {
   generateLoaderAbsoluteTemplate,
-  generateReportsListErrorTemplate,
   generateStoriesListEmptyTemplate,
+  generateStoriesListErrorTemplate,
   generateStoryItemTemplate
 } from "../../template";
 
@@ -65,7 +65,7 @@ export default class HomePage {
   }
 
   populateStoriesListError(message) {
-    document.getElementById('stories-list').innerHTML = generateReportsListErrorTemplate(message);
+    document.getElementById('stories-list').innerHTML = generateStoriesListErrorTemplate(message);
   }
 
   showLoading() {

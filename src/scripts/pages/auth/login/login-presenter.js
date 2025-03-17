@@ -1,3 +1,5 @@
+import {putAccessToken} from "../../../utils/auth";
+
 export default class LoginPresenter {
     #view;
     #model;
@@ -20,7 +22,7 @@ export default class LoginPresenter {
                 return;
             }
 
-            this.#authModel.putAccessToken(response.data.accessToken);
+            this.#authModel.putAccessToken(response.loginResult.token);
 
             this.#view.loginSuccessfully(response.message, response.data)
         } catch (error) {

@@ -1,11 +1,10 @@
 import CONFIG from "../config";
 import {getActiveRoute} from "../routes/url-parser";
 
-let token = CONFIG.ACCESS_TOKEN_KEY;
 
 export function getAccessToken() {
     try {
-        const accessToken = localStorage.getItem(token);
+        const accessToken = localStorage.getItem(CONFIG.ACCESS_TOKEN_KEY);
 
         if (accessToken === 'null' || accessToken === 'undefined') {
             return null;
@@ -18,9 +17,19 @@ export function getAccessToken() {
     }
 }
 
+export function putAccessToken(token) {
+    try {
+        localStorage.setItem(CONFIG.ACCESS_TOKEN_KEY, token);
+        return true;
+    } catch (error) {
+        console.error('putAccessToken: error:', error);
+        return false;
+    }
+}
+
 export function removeAccessToken() {
     try {
-        localStorage.removeItem(token);
+        localStorage.removeItem(CONFIG.ACCESS_TOKEN_KEY);
         return true;
     } catch (error) {
         console.error('removeAccessToken: error:', error);

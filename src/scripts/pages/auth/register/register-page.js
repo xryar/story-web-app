@@ -45,7 +45,7 @@ export default class RegisterPage {
     }
 
     async afterRender() {
-        this.#presenter = RegisterPresenter({
+        this.#presenter = new RegisterPresenter({
             view: this,
             model: StoriesAPI
         });

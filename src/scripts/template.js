@@ -44,7 +44,7 @@ export function generateStoriesListEmptyTemplate() {
     `;
 }
 
-export function generateReportsListErrorTemplate(message) {
+export function generateStoriesListErrorTemplate(message) {
     return `
         <div id="stories-list-error" class="stories-list__error">
           <h2>Terjadi kesalahan pengambilan daftar story</h2>
