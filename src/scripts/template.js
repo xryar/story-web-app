@@ -12,6 +12,29 @@ export function generateLoaderAbsoluteTemplate() {
     `;
 }
 
+export function generateMainNavigationListTemplate() {
+    return `
+        <li><a id="story-list-button" class="story-list-button" href="#/">Daftar Story</a></li>
+        <li><a id="bookmark-button" class="bookmark-button" href="#/bookmark">Story Tersimpan</a></li>
+    `
+}
+
+export function generateUnauthenticatedNavigationListTemplate() {
+    return `
+        <li id="push-notification-tools" class="push-notifications-tools"></li>
+        <li> <a id="login-button" href="#/login">Login</a></li>
+        <li> <a id="register-button" href="#/register">Register</a></li>
+    `;
+}
+
+export function generateAuthenticatedNavigationListTemplate() {
+    return `
+        <li id="push-notification-tools" class="push-notifications-tools"></li>
+        <li> <a id="new-story-button" class="btn new-story-button" href="#/new">Add Story <i class="fas fa-plus"></i></a></li>
+        <li> <a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    `
+}
+
 export function generateStoriesListEmptyTemplate() {
     return `
         <div id="stories-list-empty" class="stories-list__empty">

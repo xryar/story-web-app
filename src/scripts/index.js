@@ -15,3 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await app.renderPage();
   });
 });
+
+export function setupSkipToContent(element, mainContent) {
+  element.addEventListener('click', () => mainContent.focus());
+}

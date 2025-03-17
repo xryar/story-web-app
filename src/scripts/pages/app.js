@@ -1,20 +1,29 @@
 import routes from '../routes/routes';
 import { getActiveRoute } from '../routes/url-parser';
+import {setupSkipToContent} from "../index";
+import {getAccessToken} from "../utils/auth";
 
 class App {
   #content = null;
   #drawerButton = null;
   #navigationDrawer = null;
+  #skipLinkButton = null;
 
-  constructor({ navigationDrawer, drawerButton, content }) {
+  constructor({ navigationDrawer, drawerButton, content, skipLinkButton }) {
     this.#content = content;
     this.#drawerButton = drawerButton;
     this.#navigationDrawer = navigationDrawer;
+    this.#skipLinkButton = skipLinkButton;
 
-    this._setupDrawer();
+    this.#init();
   }
 
-  _setupDrawer() {
+  #init() {
+    setupSkipToContent(this.#skipLinkButton, this.#content)
+    this.#setupDrawer();
+  }
+
+  #setupDrawer() {
     this.#drawerButton.addEventListener('click', () => {
       this.#navigationDrawer.classList.toggle('open');
     });
@@ -30,6 +39,18 @@ class App {
         }
       })
     });
+  }
+
+  #setupNavigationList() {
+    const isLogin = !!getAccessToken();
+    const navListMain = this.#navigationDrawer.children.namedItem('navlist-main');
+    const navList = this.#navigationDrawer.children.namedItem('navlist');
+
+    if (!isLogin) {
+      navListMain.innerHTML = '';
+      navList.innerHTML = generateUnauthenticatedNavigationListTemplate();
+      return;
+    }
   }
 
   async renderPage() {

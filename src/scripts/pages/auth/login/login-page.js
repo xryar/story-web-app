@@ -79,7 +79,7 @@ export default class LoginPage {
         `
     }
 
-    hideSubmitButton() {
+    hideSubmitLoadingButton() {
         document.getElementById('submit-button-container').innerHTML = `
             <button class="btn" type="submit">Masuk</button>
         `
