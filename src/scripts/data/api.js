@@ -1,8 +1,6 @@
 import CONFIG from '../config';
 import {getAccessToken} from "../utils/auth";
 
-const accessToken = getAccessToken();
-
 const ENDPOINTS = {
   REGISTER: `${CONFIG.BASE_URL}/register`,
   LOGIN: `${CONFIG.BASE_URL}/login`,
@@ -44,6 +42,8 @@ export async function getLogin({ email, password }) {
 }
 
 export async function getAllStories() {
+  const accessToken = getAccessToken();
+
   const fetchResponse = await fetch(ENDPOINTS.GET_STORY, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
@@ -56,7 +56,9 @@ export async function getAllStories() {
 }
 
 export async function getStoriesById(id) {
+  const accessToken = getAccessToken();
   const fetchResponse = await fetch(ENDPOINTS.DETAIL_STORY, {
+    method: 'GET',
     headers: { Authorization: `Bearer ${accessToken}` },
   })
   const json = await fetchResponse.json();
@@ -73,6 +75,8 @@ export async function addStory({
     latitude,
     longitude,
 }) {
+  const accessToken = getAccessToken();
+
   const formData = new FormData();
   formData.append('image', image);
   formData.set('description', description);

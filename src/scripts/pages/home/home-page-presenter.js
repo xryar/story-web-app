@@ -18,7 +18,7 @@ export default class HomePresenter {
                 return;
             }
 
-            this.#view.populateStoriesList(response.message);
+            this.#view.populateStoriesList(response.message, response.listStory);
         } catch (error) {
             console.error('initialStories error:', error);
         } finally {

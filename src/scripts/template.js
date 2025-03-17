@@ -63,7 +63,7 @@ export function generateStoryItemTemplate({
 }) {
     return `
         <div tabindex="0" class="story-item" data-storyid="${id}">
-          <img class="story-item__image" src="${photoUrl[0]}" alt="${name}">
+          <img class="story-item__image" src="${photoUrl}" alt="${name}">
           <div class="story-item__body">
             <div class="story-item__main">
               <h2 id="story-title" class="story-item__title">${name}</h2>
@@ -72,7 +72,7 @@ export function generateStoryItemTemplate({
                   <i class="fas fa-calendar-alt"></i> ${showFormattedDate(createdAt, 'id-ID')}
                 </div>
                 <div class="story-item__location">
-                  <i class="fas fa-map"></i> ${Object.values(location)}
+                  <i class="fas fa-map"></i>${location.latitude ?? "Tidak ada data"}, ${location.longitude ?? "Tidak ada data"}
                 </div>
               </div>
             </div>

@@ -33,24 +33,28 @@ export default class HomePage {
     await this.#presenter.initialStories();
   }
 
-  populateStoriesList(message, stories) {
-    if (stories.length <= 0) {
+  populateStoriesList(message, listStory) {
+    if (listStory.length <= 0) {
       this.populateStoriesListEmpty();
       return;
     }
 
-    const html = stories.reduce((acc, story) => {
+    const html = listStory.reduce((acc, story) => {
       const coordinate = {
-        latitude: story.latitude,
-        longitude: story.longitude,
+        latitude: story.lat,
+        longitude: story.lon,
       }
 
       console.log(coordinate);
 
       return acc.concat(
           generateStoryItemTemplate({
-            ...story,
+            id: story.id,
+            name: story.name,
             description: story.description,
+            photoUrl: story.photoUrl,
+            createdAt: story.createdAt,
+            location: { latitude: story.lat, longitude: story.lon },
           })
       );
     }, '')
