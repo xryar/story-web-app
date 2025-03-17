@@ -1,5 +1,3 @@
-import {putAccessToken} from "../../../utils/auth";
-
 export default class LoginPresenter {
     #view;
     #model;
