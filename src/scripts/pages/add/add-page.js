@@ -27,7 +27,7 @@ export default class AddPage {
                 <div class="new-form__container">
                     <form id="new-form" class="new-form">
                         <div class="form-control">
-                          <label for="image-input" class="new-form__image__title">image</label>
+                          <label for="image-input" class="new-form__image__title"></label>
                           <div id="image-more-info">Anda dapat menyertakan foto sebagai dokumentasi.</div>
             
                           <div class="new-form__image__container">
@@ -66,7 +66,7 @@ export default class AddPage {
                         </div>
                     
                         <div class="form-control">
-                            <label for="description-input" class="new-form__description__description"></label>
+                            <label for="description-input" class="new-form__description__title"></label>
                         
                             <div class="new-form__description__container">
                                 <textarea
@@ -167,30 +167,23 @@ export default class AddPage {
         });
 
         const centerCoordinate = this.#map.getCenter();
-        const defaultCoordinate = { lat: -6.2, lng: 106.816666 };
 
-        const lat = centerCoordinate?.lat ?? defaultCoordinate.lat;
-        const lng = centerCoordinate?.lng ?? defaultCoordinate.lng;
-
-        this.#updateLatLngInput(lat, lng);
+        this.#updateLatLngInput(centerCoordinate.latitude, centerCoordinate.longitude);
 
         const draggableMarker = this.#map.addMarker(
-            [lat, lng],
+            [centerCoordinate.latitude, centerCoordinate.longitude],
             { draggable: true }
         );
 
         draggableMarker.addEventListener('move', (event) => {
-            const { lat, lng } = event.target.getLatLng();
-            this.#updateLatLngInput(lat, lng);
+            const coordinate = event.target.getLatLng();
+            this.#updateLatLngInput(coordinate.lat, coordinate.lng);
         });
 
         this.#map.addMapEventListener('click', (event) => {
-            const { lat, lng } = event.latlng;
-            draggableMarker.setLatLng([lat, lng]);
+            draggableMarker.setLatLng(event.latlng);
 
-            this.#updateLatLngInput(lat, lng);
-
-            event.sourceTarget.flyTo(event.latlng.lat, event.latlng.lng);
+            event.sourceTarget.flyTo(event.latlng);
         });
     }
 
