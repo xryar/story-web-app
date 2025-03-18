@@ -464,6 +464,10 @@ header {
 }
 /* END OF HOME PAGE */
 
+/* DETAIL PAGE */
+
+/* END OF DETAIL PAGE */
+
 /* NEW REPORT FORM */
 .new-story__header {
   padding-block: 70px;
@@ -601,7 +605,7 @@ header {
   display: flex;
   gap: 10px;
 }
-/* END OF NEW REPORT FORM */
+/* END OF LOCATIONS */
 
 /* Write your styles more here */
 
