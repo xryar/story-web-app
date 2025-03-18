@@ -85,8 +85,8 @@ export default class AddPage {
                               <div id="map-loading-container"></div>
                             </div>
                             <div class="new-form__location__lat-lng">
-                              <input type="number" name="latitude" value="-6.175389" disabled>
-                              <input type="number" name="longitude" value="106.827139" disabled>
+                              <input type="number" name="lat" value="-6.175389" disabled>
+                              <input type="number" name="lon" value="106.827139" disabled>
                             </div>
                           </div>
                         </div>
@@ -108,7 +108,7 @@ export default class AddPage {
             model: StoriesAPI
         });
 
-        await this.#presenter.showNewFormMap();
+        this.#presenter.showNewFormMap();
         this.#setupForm();
     }
 
@@ -120,8 +120,8 @@ export default class AddPage {
             const data = {
                 image: this.#takenImage ? this.#takenImage.blob : null,
                 description: this.#form.elements.namedItem('description').value,
-                lat: this.#form.elements.namedItem('latitude').value,
-                long: this.#form.elements.namedItem('longitude').value,
+                lat: this.#form.elements.namedItem('lat').value,
+                lon: this.#form.elements.namedItem('lon').value,
             };
 
             await this.#presenter.postNewStory(data);
@@ -167,29 +167,36 @@ export default class AddPage {
         });
 
         const centerCoordinate = this.#map.getCenter();
+        const defaultCoordinate = { lat: -6.2, lng: 106.816666 };
 
-        this.#updateLatLngInput(centerCoordinate.lat, centerCoordinate.long);
+        const lat = centerCoordinate?.lat ?? defaultCoordinate.lat;
+        const lng = centerCoordinate?.lng ?? defaultCoordinate.lng;
+
+        this.#updateLatLngInput(lat, lng);
 
         const draggableMarker = this.#map.addMarker(
-            [centerCoordinate.lat, centerCoordinate.long],
+            [lat, lng],
             { draggable: true }
         );
 
         draggableMarker.addEventListener('move', (event) => {
-            const coordinate = event.target.getLatLng();
-            this.#updateLatLngInput(coordinate.lat, coordinate.lng);
+            const { lat, lng } = event.target.getLatLng();
+            this.#updateLatLngInput(lat, lng);
         });
 
         this.#map.addMapEventListener('click', (event) => {
-            draggableMarker.setLatLng(event.lat, event.long);
+            const { lat, lng } = event.latlng;
+            draggableMarker.setLatLng([lat, lng]);
 
-            event.sourceTarget.flyTo(event.lat, event.long);
+            this.#updateLatLngInput(lat, lng);
+
+            event.sourceTarget.flyTo(event.latlng.lat, event.latlng.lng);
         });
     }
 
     #updateLatLngInput(lat, long) {
-        this.#form.elements.namedItem('latitude').value = lat;
-        this.#form.elements.namedItem('longitude').value = long;
+        this.#form.elements.namedItem('lat').value = lat;
+        this.#form.elements.namedItem('lon').value = long;
     }
 
     #setupCamera() {

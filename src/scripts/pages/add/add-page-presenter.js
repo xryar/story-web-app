@@ -18,14 +18,14 @@ export default class AddPagePresenter {
         }
     }
 
-    async postNewStory({ image, description, latitude, longitude }) {
+    async postNewStory({ image, description, lat, lon }) {
         this.#view.showSubmitLoadingButton();
         try {
             const data = {
                 image: image,
                 description: description,
-                latitude: latitude,
-                longitude: longitude,
+                latitude: lat,
+                longitude: lon,
             };
             const response = await this.#model.addStory(data);
 

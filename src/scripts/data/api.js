@@ -78,10 +78,10 @@ export async function addStory({
   const accessToken = getAccessToken();
 
   const formData = new FormData();
-  formData.append('image', image);
+  formData.append('photo', image);
   formData.set('description', description);
-  formData.set('latitude', latitude);
-  formData.set('longitude', longitude);
+  formData.set('lat', latitude);
+  formData.set('lon', longitude);
 
   const fetchResponse = await fetch(ENDPOINTS.ADD_STORY, {
     method: 'POST',
