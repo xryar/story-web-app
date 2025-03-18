@@ -26,10 +26,10 @@ export default class Camera {
         }
 
         window.currentStreams.forEach((stream) => {
-            if (stream.isActive) {
+            if (stream.active) {
                 stream.getTracks().forEach((track) => track.stop());
             }
-        })
+        });
     }
 
     constructor({ video, cameraSelect, canvas, options = {} }) {
@@ -41,7 +41,7 @@ export default class Camera {
     }
 
     #initialListener() {
-        this.#videoElement.oncanplay = () =>{
+        this.#videoElement.oncanplay = () => {
             if (this.#streaming) {
                 return;
             }
@@ -69,31 +69,33 @@ export default class Camera {
             const { deviceId } = stream.getVideoTracks()[0].getSettings();
 
             const enumeratedDevices = await navigator.mediaDevices.enumerateDevices();
-            const list =enumeratedDevices.filter((device) => {
+            const list = enumeratedDevices.filter((device) => {
                 return device.kind === 'videoinput';
             });
 
-            const html = list.reduce((acc, device, currentIndex) => {
-                return acc.concat(`
-                    <option
-                       value="${device.deviceId}"
-                       ${deviceId == device.deviceId ? 'selected' : ''}
+            const html = list.reduce((accumulator, device, currentIndex) => {
+                return accumulator.concat(`
+                    <option 
+                        value="${device.deviceId}"
+                        ${deviceId == device.deviceId ? 'selected' : ''}
                     >
-                         ${device.label || `Camera ${currentIndex + 1}`}
-                    </option>
+                        ${device.label || `Camera ${currentIndex + 1}`}
+                    </option>    
                 `);
             }, '');
 
             this.#selectCameraElement.innerHTML = html;
         } catch (error) {
-            console.log('#populateDeviceList: error:', error);
+            console.log('#populateDevicesList: error:' ,error);
         }
     }
 
     async #getStream() {
         try {
-            const deviceId = !this.#streaming && !this.#selectCameraElement.value
-                ? undefined : { exact: this.#selectCameraElement.value }
+            const deviceId =
+                !this.#streaming && !this.#selectCameraElement.value
+                    ? undefined
+                    : { exact: this.#selectCameraElement.value }
 
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: {
@@ -104,17 +106,19 @@ export default class Camera {
 
             await this.#populateDeviceList(stream);
 
-            return stream
+            return stream;
         } catch (error) {
-            console.log('#getStream: error:', error);
+            console.log('#getStream Error: ', error);
             return null;
         }
     }
 
-    async launch(){
-        this.#currentStream = await this.#getStream()
+    async launch() {
+        this.#currentStream = await this.#getStream();
 
         Camera.addNewStream(this.#currentStream);
+
+        this.#videoElement.srcObject = this.#currentStream;
         this.#videoElement.play();
 
         this.#clearCanvas();
@@ -129,7 +133,7 @@ export default class Camera {
         if (this.#currentStream instanceof MediaStream) {
             this.#currentStream.getTracks().forEach((track) => {
                 track.stop();
-            })
+            });
         }
 
         this.#clearCanvas();
@@ -155,7 +159,7 @@ export default class Camera {
 
         return await new Promise((resolve) => {
             this.#canvasElement.toBlob((blob) => resolve(blob));
-        })
+        });
     }
 
     addCheeseButtonListener(selector, callback) {
