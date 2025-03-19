@@ -57,9 +57,11 @@ export default class DetailPage {
     }
 
     async initialMap() {
+        console.log('Memulai peta...');
         this.#map = await Map.build('#map', {
             zoom: 15,
         })
+        console.log('Peta berhasil dibuat:', this.#map);
     }
 
     showStoryDetailLoading() {

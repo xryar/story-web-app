@@ -67,6 +67,11 @@ export default class Map {
                 });
             }
         }
+
+        return new Map(selector, {
+            ...options,
+            center: defaultCoordinate,
+        });
     }
 
     constructor(selector, options = {}) {

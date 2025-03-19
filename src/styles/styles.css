@@ -465,6 +465,86 @@ header {
 /* END OF HOME PAGE */
 
 /* DETAIL PAGE */
+.story-detail__container,
+.story-detail {
+  position: relative;
+  min-height: 80vh;
+}
+
+.story-detail__more-info {
+  margin: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 20px;
+
+  font-size: 1.5rem;
+  color: #5d5d5d;
+}
+
+.story-detail__more-info__inline {
+  display: flex;
+  flex-wrap: wrap;justify-content: center;
+  gap: 24px;
+}
+
+.story-detail__createdat,
+.story-detail__location__place-name,
+.story-detail__location__latitude,
+.story-detail__location__longitude,
+.story-detail__author {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.story-detail__createdat::after,
+.story-detail__location__place-name::after,
+.story-detail__location__latitude::after,
+.story-detail__location__longitude::after,
+.story-detail__author::after {
+  content: attr(data-value);
+  color: #09090b;
+}
+
+.story-detail__images {
+  height: 300px;
+}
+
+.story-detail__image {
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.story-detail__body {
+  margin-block: 40px;
+  margin-inline: auto;
+  max-width: 800px;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  gap: 30px;
+}
+
+.story-detail__description__title,
+.story-detail__map__title {
+  margin-block-end: 12px;
+  font-size: 1.5rem;
+}
+
+.story-detail__map__container,
+.story-detail__map {
+  height: 500px;
+  position: relative;
+}
+
+.story-detail__map__container {
+  background-color: darkgray;
+}
 
 /* END OF DETAIL PAGE */
 
