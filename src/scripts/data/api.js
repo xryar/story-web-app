@@ -6,7 +6,7 @@ const ENDPOINTS = {
   LOGIN: `${CONFIG.BASE_URL}/login`,
   ADD_STORY: `${CONFIG.BASE_URL}/stories`,
   GET_STORY: `${CONFIG.BASE_URL}/stories`,
-  DETAIL_STORY: `${CONFIG.BASE_URL}/stories/:id`,
+  DETAIL_STORY: (id) => `${CONFIG.BASE_URL}/stories/${id}`,
 };
 
 export async function getRegistered({ name, email, password }) {
@@ -55,9 +55,9 @@ export async function getAllStories() {
   }
 }
 
-export async function getStoriesById(id) {
+export async function getStoryById(id) {
   const accessToken = getAccessToken();
-  const fetchResponse = await fetch(ENDPOINTS.DETAIL_STORY, {
+  const fetchResponse = await fetch(ENDPOINTS.DETAIL_STORY(id), {
     method: 'GET',
     headers: { Authorization: `Bearer ${accessToken}` },
   })

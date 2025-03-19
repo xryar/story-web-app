@@ -84,10 +84,78 @@ export function generateStoryItemTemplate({
                 Dilaporkan oleh: ${name}
               </div>
             </div>
-            <a class="btn story-item__read-more" href="#/stories/${id}">
+            <a class="btn story-item__read-more" href="#/story/${id}">
               Selengkapnya <i class="fas fa-arrow-right"></i>
             </a>
           </div>
         </div>
+    `;
+}
+
+export function generateStoryDetailTemplate({
+    image,
+    description,
+    location,
+    authorName,
+    createdAt,
+}) {
+    const createdAtFormatted = showFormattedDate(createdAt, 'id-ID');
+    const imageHtml = generateImageDetailTemplate(image);
+
+    return `
+        <div class="container">
+            <div class="story-detail__image__container">
+                <div id="image" class="story-detail__image">${imageHtml}</div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="story-detail__body">
+                <<div class="story-detail__more-info">
+                    <div class="story-detail__more-info__inline">
+                      <div id="createdat" class="story-detail__createdat" data-value="${createdAtFormatted}"><i class="fas fa-calendar-alt"></i></div>
+                      <div id="location-place-name" class="story-detail__location__place-name" data-value="${location.placeName}"><i class="fas fa-map"></i></div>
+                    </div>
+                    <div class="story-detail__more-info__inline">
+                      <div id="location-latitude" class="story-detail__location__latitude" data-value="${location.latitude}">Latitude:</div>
+                      <div id="location-longitude" class="story-detail__location__longitude" data-value="${location.longitude}">Longitude:</div>
+                    </div>
+                    <div id="author" class="report-detail__author" data-value="${authorName}">Dibuat oleh:</div>
+              </div>
+            </div>
+            
+            <div class="story-detail__body__description__container">
+                <h2 class="story-detail__description__title">Deskripsi</h2>
+                <div id="description" class="story-detail__description__body">
+                  ${description}
+                </div>
+            </div>
+            <div class="story-detail__body__map__container">
+              <h2 class="story-detail__map__title">Peta Lokasi</h2>
+              <div class="story-detail__map__container">
+                <div id="map" class="story-detail__map"></div>
+                <div id="map-loading-container"></div>
+              </div>
+            </div>
+        </div>
     `
+}
+
+export function generateImageDetailTemplate(imageUrl = null, alt ="") {
+    if (!imageUrl) {
+        return `<img class="story-detail__image" src="images/logo.png" alt="Placeholder Image">`;
+    }
+
+    return `
+        <img class="story-detail__image" src="${imageUrl}" alt="${alt}">
+    `;
+}
+
+export function generateStoryDetailErrorTemplate(message) {
+    return `
+    <div id="story-detail-error" class="story-detail__error">
+      <h2>Terjadi kesalahan pengambilan detail story</h2>
+      <p>${message ? message : 'Gunakan jaringan lain atau laporkan error ini.'}</p>
+    </div>
+  `;
 }
