@@ -3,7 +3,6 @@ import { getActiveRoute } from '../routes/url-parser';;
 import {getAccessToken, getLogout} from "../utils/auth";
 import {
   generateAuthenticatedNavigationListTemplate,
-  generateMainNavigationListTemplate,
   generateUnauthenticatedNavigationListTemplate
 } from "../template";
 import {setupSkipToContent, transitionHelper} from "../utils";

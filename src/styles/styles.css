@@ -6,13 +6,13 @@
 }
 
 :root {
-  --primary-color: #d97706;
-  --primary-text-color: #ffffff;
-  --primary-hover-color: #b66200;
-  --primary-shadow-color: #d9770699;
+  --primary-color: #C599B6;
+  --primary-text-color: #FFF7F3;
+  --primary-hover-color: #E6B2BA;
+  --primary-shadow-color: #FAD0C4;
 
-  --secondary-color: #6c757d;
-  --secondary-text-color: #ffffff;
+  --secondary-color: #C7D9DD;
+  --secondary-text-color: #EEF1DA;
 }
 
 @keyframes full-slide-from-right {
@@ -50,7 +50,7 @@ body {
   inset-inline: auto;
   position: absolute;
 
-  color: #ffffff;
+  color: #FFF7F3;
   font-size: 1rem;
   font-weight: 700;
 
@@ -114,6 +114,7 @@ select {
 }
 
 .btn {
+  width: 100%;
   background-color: var(--primary-color);
   border-radius: 4px;
   padding: 10px 20px;
@@ -155,20 +156,8 @@ select {
   color: var(--primary-text-color) !important;
 }
 
-.btn.btn-transparent {
-  border: 1px solid #d4d4d4;
-  background-color: #ffffff;
-  color: #09090b !important;
-}
-
 .btn.btn-transparent:hover {
   background-color: #d4d4d4;
-}
-
-.btn.btn-transparent:focus-visible {
-  outline: none;
-  border-color: var(--primary-shadow-color);
-  box-shadow: 0 0 0 4px var(--primary-shadow-color);
 }
 
 input:focus-visible,
@@ -233,7 +222,7 @@ i.loader-button {
 }
 
 header {
-  background-color: lightskyblue;
+  background-color: #C599B6;
 
   position: sticky;
   inset-block-start: 0;
@@ -241,16 +230,6 @@ header {
   z-index: 9999;
 
   view-transition-name: header;
-}
-
-.header-content {
-  min-height: 90px;
-  padding-block: 20px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 30px;
 }
 
 .main-header {
@@ -263,7 +242,7 @@ header {
   gap: 30px;
 }
 
-.brand-name {
+.brand-name__link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -271,14 +250,14 @@ header {
   font-size: 1.125rem;
   font-weight: bold;
   text-decoration: none;
-  color: #333;
+  color: #FFF7F3;
 }
 
 .navigation-drawer {
   min-height: 100vh;
   width: 200px;
   padding: 20px 10px;
-  background-color: #fff;
+  background-color: #FFF7F3;
 
   position: fixed;
   inset-block-start: 0;
@@ -309,7 +288,7 @@ header {
 
   font-weight: bold;
   font-size: 28px;
-  color: #141e16;
+  color: #FFF7F3;
 
   cursor: pointer;
 }
@@ -325,11 +304,11 @@ header {
 .nav-list li a,
 .nav-list li button{
   width: 100%;
-  padding: 6px 10px;
+  padding: 10px;
 
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 
   text-decoration: none;
 }

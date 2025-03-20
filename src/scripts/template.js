@@ -12,16 +12,9 @@ export function generateLoaderAbsoluteTemplate() {
     `;
 }
 
-export function generateMainNavigationListTemplate() {
-    return `
-        <li><a id="story-list-button" class="story-list-button" href="#/">Daftar Story</a></li>
-        <li><a id="bookmark-button" class="bookmark-button" href="#/bookmark">Story Tersimpan</a></li>
-    `
-}
 
 export function generateUnauthenticatedNavigationListTemplate() {
     return `
-        <li id="push-notification-tools" class="push-notifications-tools"></li>
         <li> <a id="login-button" href="#/login">Login</a></li>
         <li> <a id="register-button" href="#/register">Register</a></li>
     `;
@@ -29,7 +22,6 @@ export function generateUnauthenticatedNavigationListTemplate() {
 
 export function generateAuthenticatedNavigationListTemplate() {
     return `
-        <li id="push-notification-tools" class="push-notifications-tools"></li>
         <li> <a id="new-story-button" class="btn new-story-button" href="#/new">Add Story <i class="fas fa-plus"></i></a></li>
         <li> <a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     `
@@ -117,8 +109,8 @@ export function generateStoryDetailTemplate({
                       <div id="location-place-name" class="story-detail__location__place-name" data-value="${location.placeName}"><i class="fas fa-map"></i></div>
                     </div>
                     <div class="story-detail__more-info__inline">
-                      <div id="location-latitude" class="story-detail__location__latitude" data-value="${location.latitude}">Latitude:</div>
-                      <div id="location-longitude" class="story-detail__location__longitude" data-value="${location.longitude}">Longitude:</div>
+                      <div id="location-latitude" class="story-detail__location__latitude" data-value="${location.latitude ?? 'Latitude tidak ada'}">Latitude:</div>
+                      <div id="location-longitude" class="story-detail__location__longitude" data-value="${location.longitude ?? 'Longitude tidak ada'}">Longitude:</div>
                     </div>
                     <div id="author" class="story-detail__author" data-value="${authorName}">Dibuat oleh:</div>
               </div>

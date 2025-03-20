@@ -3,7 +3,6 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import CONFIG from '../config'
-import {zoom} from "leaflet/src/control/Control.Zoom";
 
 export default class Map {
     #zoom = 5;
@@ -20,7 +19,7 @@ export default class Map {
             const json = await response.json();
 
             const place = json.features[0].place_name.split(' ');
-            return [place.at(-2), place.at(-1)].map((name) => name).join(', ');
+            return [place.at(-2), place.at(-1)].map((name) => name).join(' ');
         } catch (error) {
             console.error('getPlaceNameByCoordinate', error);
             return `${latitude}, ${longitude}`;
