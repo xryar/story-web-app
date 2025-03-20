@@ -305,6 +305,7 @@ header {
 .nav-list li button{
   width: 100%;
   padding: 10px;
+  color: #FFF7F3;
 
   display: flex;
   align-items: center;
@@ -381,7 +382,7 @@ header {
 
 .stories-list {
   display: grid;
-  grid-template-columns: repeat(4, minmax(300px, 1fr));
+  grid-template-columns: repeat(6, minmax(300px, 1fr));
   gap: 20px 15px;
 }
 
@@ -484,10 +485,6 @@ header {
 .story-detail__author::after {
   content: attr(data-value);
   color: #09090b;
-}
-
-.story-detail__images {
-  height: 300px;
 }
 
 .story-detail__image {
@@ -667,6 +664,18 @@ header {
 /* END OF LOCATIONS */
 
 /* Write your styles more here */
+
+@media screen and (width > 600px) {
+  .stories-list {
+    grid-template-columns: repeat(1, minmax(100%, 1fr));
+  }
+}
+
+@media screen and (width > 800px) {
+  .stories-list {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+  }
+}
 
 @media screen and (width > 1000px) {
   .navigation-drawer {

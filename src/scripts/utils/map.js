@@ -81,12 +81,28 @@ export default class Map {
                 '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
         });
 
+        const tileSatellite = tileLayer(`https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=${CONFIG.MAP_SERVICE_API_KEY}`, {
+            attribution: '&copy; <a href="https://www.maptiler.com/" target="_blank">MapTiler</a> contributors',
+        });
+
+        const tileDark = tileLayer(`https://api.maptiler.com/maps/toner/{z}/{x}/{y}.png?key=${CONFIG.MAP_SERVICE_API_KEY}`, {
+            attribution: '&copy; <a href="https://www.maptiler.com/" target="_blank">MapTiler</a> contributors',
+        });
+
         this.#map = map(document.querySelector(selector), {
             zoom: this.#zoom,
             scrollWheelZoom: false,
             layers: [tileOsm],
             ...options,
-        })
+        });
+
+        const baseMaps = {
+            "Streets": tileOsm,
+            "Satellite": tileSatellite,
+            "Dark Mode": tileDark
+        };
+
+        L.control.layers(baseMaps).addTo(this.#map);
     }
 
     changeCamera(coordinate, zoomLevel = null) {

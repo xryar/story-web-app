@@ -62,7 +62,7 @@ export default class DetailPage {
                         text: 'Terjadi kesalahan saat memuat peta.',
                         footer: `<small>Error: ${error.message}</small>`
                     });
-                }, 1000)
+                }, 950)
             }
         } else {
             setTimeout(() => {
@@ -71,7 +71,7 @@ export default class DetailPage {
                     title: 'Lokasi tidak tersedia',
                     text: 'Koordinat tidak ditemukan untuk cerita ini.',
                 });
-            }, 1000)
+            }, 950)
         }
     }
 
