@@ -92,7 +92,7 @@ export default class AddPage {
                         </div>
                         <div class="form-buttons">
                           <span id="submit-button-container">
-                            <button class="btn" type="submit">Buat Laporan</button>
+                            <button class="btn" type="submit">Buat Story</button>
                           </span>
                           <a class="btn btn-outline" href="#/">Batal</a>
                         </div>
@@ -207,7 +207,6 @@ export default class AddPage {
             const image = await this.#camera.takePicture();
             await this.#addTakenPicture(image);
             await this.#populateTakenPicture();
-            alert(URL.createObjectURL(image))
         })
     }
 

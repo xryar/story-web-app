@@ -135,7 +135,7 @@ export function generateStoryDetailTemplate({
 
 export function generateImageDetailTemplate(imageUrl = null, alt ="") {
     if (!imageUrl) {
-        return `<img class="story-detail__image" src="images/logo.png" alt="Placeholder Image">`;
+        return `<img class="story-detail__image" src="" alt="Placeholder Image">`;
     }
 
     return `
