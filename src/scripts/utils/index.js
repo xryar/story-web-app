@@ -47,3 +47,21 @@ export function transitionHelper({ skipTransition = false, updateDOM }) {
 export function sleep(time = 1000) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+
+export function isServiceWorkerAvailable() {
+  return 'serviceWorker' in navigator;
+}
+
+export async function registerServiceWorker() {
+  if (!isServiceWorkerAvailable()) {
+    console.log('Service worker API unsupported.');
+    return;
+  }
+
+  try {
+    const registration = await navigator.serviceWorker.register('/sw.bundle.js');
+    console.log('service worker telah terpasang', registration);
+  } catch (error) {
+    console.log('Failed to install service worker:', error);
+  }
+}
