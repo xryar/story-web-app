@@ -2,10 +2,11 @@ import routes from '../routes/routes';
 import { getActiveRoute } from '../routes/url-parser';;
 import {getAccessToken, getLogout} from "../utils/auth";
 import {
-  generateAuthenticatedNavigationListTemplate,
+  generateAuthenticatedNavigationListTemplate, generateSubscribeButtonTemplate,
   generateUnauthenticatedNavigationListTemplate
 } from "../template";
-import {setupSkipToContent, transitionHelper} from "../utils";
+import {isServiceWorkerAvailable, setupSkipToContent, transitionHelper} from "../utils";
+import {subscribe} from "../utils/notification-helper";
 
 class App {
   #content = null;
@@ -68,6 +69,15 @@ class App {
     });
   }
 
+  async #setupPushNotification() {
+    const pushNotificationTools = document.getElementById('push-notification-tools');
+
+    pushNotificationTools.innerHTML = generateSubscribeButtonTemplate();
+    document.getElementById('subscribe-button').addEventListener('click', (event) => {
+      subscribe();
+    })
+  }
+
   async renderPage() {
     const url = getActiveRoute();
     const route = routes[url];
@@ -85,6 +95,10 @@ class App {
     transition.updateCallbackDone.then(() => {
       scrollTo({ top: 0, behavior: 'instant' });
       this.#setupNavigationList();
+
+      if (isServiceWorkerAvailable()) {
+        this.#setupPushNotification();
+      }
     })
   }
 }

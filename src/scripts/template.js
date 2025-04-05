@@ -15,6 +15,7 @@ export function generateLoaderAbsoluteTemplate() {
 
 export function generateUnauthenticatedNavigationListTemplate() {
     return `
+        <li id="push-notification-tools" class="push-notification-tools"></li>
         <li> <a id="login-button" href="#/login">Login</a></li>
         <li> <a id="register-button" href="#/register">Register</a></li>
     `;
@@ -22,6 +23,7 @@ export function generateUnauthenticatedNavigationListTemplate() {
 
 export function generateAuthenticatedNavigationListTemplate() {
     return `
+        <li id="push-notification-tools" class="push-notification-tools"></li>
         <li> <a id="new-story-button" class="btn new-story-button" href="#/new">Add Story <i class="fas fa-plus"></i></a></li>
         <li> <a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     `
@@ -149,5 +151,21 @@ export function generateStoryDetailErrorTemplate(message) {
       <h2>Terjadi kesalahan pengambilan detail story</h2>
       <p>${message ? message : 'Gunakan jaringan lain atau laporkan error ini.'}</p>
     </div>
+  `;
+}
+
+export function generateSubscribeButtonTemplate() {
+    return `
+    <button id="subscribe-button" class="btn subscribe-button">
+      Subscribe <i class="fas fa-bell"></i>
+    </button>
+  `;
+}
+
+export function generateUnsubscribeButtonTemplate() {
+    return `
+    <button id="unsubscribe-button" class="btn unsubscribe-button">
+      Unsubscribe <i class="fas fa-bell-slash"></i>
+    </button>
   `;
 }
