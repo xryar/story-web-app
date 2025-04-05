@@ -123,13 +123,14 @@ export function generateStoryDetailTemplate({
                   ${description}
                 </div>
               </div>
+              
                <div class="story-detail__body__map__container">
                   <h2 class="story-detail__map__title">Peta Lokasi</h2>
                   <div class="story-detail__map__container">
                     <div id="map" class="story-detail__map"></div>
                     <div id="map-loading-container"></div>
                   </div>
-                </div>
+               </div>
             </div>
         </div>
     `

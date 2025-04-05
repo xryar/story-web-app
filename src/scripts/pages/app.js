@@ -3,10 +3,10 @@ import { getActiveRoute } from '../routes/url-parser';
 import {getAccessToken, getLogout} from "../utils/auth";
 import {
   generateAuthenticatedNavigationListTemplate, generateSubscribeButtonTemplate,
-  generateUnauthenticatedNavigationListTemplate
+  generateUnauthenticatedNavigationListTemplate, generateUnsubscribeButtonTemplate
 } from "../template";
 import {isServiceWorkerAvailable, setupSkipToContent, transitionHelper} from "../utils";
-import {subscribe} from "../utils/notification-helper";
+import {isCurrentPushSubscriptionAvailable, subscribe} from "../utils/notification-helper";
 
 class App {
   #content = null;
@@ -71,10 +71,19 @@ class App {
 
   async #setupPushNotification() {
     const pushNotificationTools = document.getElementById('push-notification-tools');
+    const isSubscribed = await isCurrentPushSubscriptionAvailable();
+
+    if (isSubscribed) {
+      pushNotificationTools.innerHTML = generateUnsubscribeButtonTemplate();
+
+      return;
+    }
 
     pushNotificationTools.innerHTML = generateSubscribeButtonTemplate();
     document.getElementById('subscribe-button').addEventListener('click', () => {
-      subscribe();
+      subscribe().finally(() => {
+        this.#setupPushNotification();
+      });
     })
   }
 
