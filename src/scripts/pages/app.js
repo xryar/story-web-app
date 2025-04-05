@@ -1,5 +1,5 @@
 import routes from '../routes/routes';
-import { getActiveRoute } from '../routes/url-parser';;
+import { getActiveRoute } from '../routes/url-parser';
 import {getAccessToken, getLogout} from "../utils/auth";
 import {
   generateAuthenticatedNavigationListTemplate, generateSubscribeButtonTemplate,
@@ -73,7 +73,7 @@ class App {
     const pushNotificationTools = document.getElementById('push-notification-tools');
 
     pushNotificationTools.innerHTML = generateSubscribeButtonTemplate();
-    document.getElementById('subscribe-button').addEventListener('click', (event) => {
+    document.getElementById('subscribe-button').addEventListener('click', () => {
       subscribe();
     })
   }
