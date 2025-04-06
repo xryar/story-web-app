@@ -2,8 +2,10 @@ self.addEventListener('push', (event) => {
     console.log('Service worker pushing...');
 
     async function chainPromise() {
-        await self.registration.showNotification('Ada Story baru nih buat kamu!', {
-            body: 'Test buat kamu!',
+        const data = await event.data.json();
+
+        await self.registration.showNotification(data.title, {
+            body: data.options.body,
         });
     }
 

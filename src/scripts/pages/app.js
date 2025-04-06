@@ -6,7 +6,7 @@ import {
   generateUnauthenticatedNavigationListTemplate, generateUnsubscribeButtonTemplate
 } from "../template";
 import {isServiceWorkerAvailable, setupSkipToContent, transitionHelper} from "../utils";
-import {isCurrentPushSubscriptionAvailable, subscribe} from "../utils/notification-helper";
+import {isCurrentPushSubscriptionAvailable, subscribe, unsubscribe} from "../utils/notification-helper";
 
 class App {
   #content = null;
@@ -75,6 +75,11 @@ class App {
 
     if (isSubscribed) {
       pushNotificationTools.innerHTML = generateUnsubscribeButtonTemplate();
+      document.getElementById('unsubscribe-button').addEventListener('click', event => {
+        unsubscribe().finally(() => {
+          this.#setupPushNotification();
+        })
+      })
 
       return;
     }
