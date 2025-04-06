@@ -75,7 +75,7 @@ class App {
 
     if (isSubscribed) {
       pushNotificationTools.innerHTML = generateUnsubscribeButtonTemplate();
-      document.getElementById('unsubscribe-button').addEventListener('click', event => {
+      document.getElementById('unsubscribe-button').addEventListener('click', () => {
         unsubscribe().finally(() => {
           this.#setupPushNotification();
         })
