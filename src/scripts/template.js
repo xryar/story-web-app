@@ -24,7 +24,7 @@ export function generateUnauthenticatedNavigationListTemplate() {
 export function generateAuthenticatedNavigationListTemplate() {
     return `
         <li id="push-notification-tools" class="push-notification-tools"></li>
-        <li><a id="bookmark-button" class="bookmark-button" href="#/bookmark">Story Tersimpan</a></li>
+        <li> <a id="bookmark-button" class="btn bookmark-button" href="#/bookmark">Story Tersimpan</a></li>
         <li> <a id="new-story-button" class="btn new-story-button" href="#/new">Add Story <i class="fas fa-plus"></i></a></li>
         <li> <a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     `
