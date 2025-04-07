@@ -663,6 +663,29 @@ header {
 }
 /* END OF LOCATIONS */
 
+/* START NOT FOUND */
+
+.not-found {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.not-found h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+}
+
+.not-found p {
+  margin: 20px 0;
+  font-size: 1.25rem;
+}
+
+.not-found a {
+  width: 250px;
+}
+
+/* END OF NOT FOUND */
+
 /* Write your styles more here */
 
 @media screen and (width > 600px) {

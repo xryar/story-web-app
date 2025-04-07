@@ -94,7 +94,12 @@ class App {
 
   async renderPage() {
     const url = getActiveRoute();
-    const route = routes[url];
+    const route = routes[url] || routes['*'];
+
+    if (!route) {
+      console.error(`No route handler found for ${url}`);
+      return;
+    }
 
     const page = route();
 
