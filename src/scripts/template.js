@@ -132,6 +132,15 @@ export function generateStoryDetailTemplate({
                     <div id="map-loading-container"></div>
                   </div>
                </div>
+               
+               <hr>
+  
+               <div class="story-detail__body__actions__container">
+                 <h2>Aksi</h2>
+                 <div class="story-detail__actions__buttons">
+                   <div id="save-actions-container"></div>
+                 </div>
+               </div>
             </div>
         </div>
     `
@@ -168,6 +177,22 @@ export function generateUnsubscribeButtonTemplate() {
     return `
     <button id="unsubscribe-button" class="btn unsubscribe-button">
       Unsubscribe <i class="fas fa-bell-slash"></i>
+    </button>
+  `;
+}
+
+export function generateSaveStoryButtonTemplate() {
+    return `
+    <button id="story-detail-save" class="btn btn-transparent">
+      Simpan Story <i class="far fa-bookmark"></i>
+    </button>
+  `;
+}
+
+export function generateRemoveStoryButtonTemplate() {
+    return `
+    <button id="story-detail-remove" class="btn btn-transparent">
+      Buang Story <i class="fas fa-bookmark"></i>
     </button>
   `;
 }

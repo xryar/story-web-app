@@ -2,12 +2,14 @@ import DetailPresenter from "./detail-presenter";
 import {parseActivePathname} from "../../routes/url-parser";
 import * as StoriesAPI from "../../data/api";
 import {
-    generateLoaderAbsoluteTemplate,
+    generateLoaderAbsoluteTemplate, generateRemoveStoryButtonTemplate,
+    generateSaveStoryButtonTemplate,
     generateStoryDetailErrorTemplate,
     generateStoryDetailTemplate
 } from "../../template";
 import Map from "../../utils/map";
 import Swal from "sweetalert2";
+import Database from "../../data/database";
 
 export default class DetailPage {
     #presenter = null;
@@ -28,6 +30,7 @@ export default class DetailPage {
         this.#presenter = new DetailPresenter(parseActivePathname().id, {
             view: this,
             apiModel: StoriesAPI,
+            dbModel: Database,
         });
 
         this.#presenter.showStoryDetail()
@@ -73,6 +76,8 @@ export default class DetailPage {
                 });
             }, 500)
         }
+
+        this.#presenter.showSaveButton();
     }
 
     populateStoryDetailError(message) {
@@ -85,6 +90,40 @@ export default class DetailPage {
             zoom: 15,
         })
         console.log('Peta berhasil dibuat:', this.#map);
+    }
+
+    renderSaveButton() {
+        document.getElementById('save-actions-container').innerHTML = generateSaveStoryButtonTemplate();
+
+        document.getElementById('story-detail-save').addEventListener('click', async () => {
+            await this.#presenter.saveStory();
+        })
+    }
+
+    renderRemoveButton() {
+        document.getElementById('save-actions-container').innerHTML =
+            generateRemoveStoryButtonTemplate();
+
+        document.getElementById('story-detail-remove').addEventListener('click', async () => {
+            await this.#presenter.removeReport();
+            await this.#presenter.showSaveButton();
+        });
+    }
+
+    saveToBookmarkSuccessfully(message) {
+        console.log(message);
+    }
+
+    saveToBookmarkFailed(message) {
+        alert(message);
+    }
+
+    removeFromBookmarkSuccessfully(message) {
+        console.log(message);
+    }
+
+    removeFromBookmarkFailed(message) {
+        alert(message);
     }
 
     showStoryDetailLoading() {
