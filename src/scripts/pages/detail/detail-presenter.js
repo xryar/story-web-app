@@ -1,4 +1,3 @@
-import {getStoryById} from "../../data/api";
 import {storyMapper} from "../../data/api-mapper";
 
 export default class DetailPresenter {
@@ -54,10 +53,6 @@ export default class DetailPresenter {
             console.log('Story to save:', response.story);
 
             await this.#dbModel.putStory(response.story);
-
-            if (!response.story) {
-                throw new Error('Story data is missing');
-            }
 
             this.#view.saveToBookmarkSuccessfully('Success to save to bookmark');
         } catch (error) {
