@@ -97,6 +97,7 @@ export default class DetailPage {
 
         document.getElementById('story-detail-save').addEventListener('click', async () => {
             await this.#presenter.saveStory();
+            await this.#presenter.showSaveButton();
         })
     }
 
