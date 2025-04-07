@@ -1,6 +1,7 @@
 import LoginPresenter from "./login-presenter";
 import * as StoriesAPI from "../../../data/api";
 import * as AuthModel from "../../../utils/auth";
+import Swal from "sweetalert2";
 
 export default class LoginPage {
     #presenter = null;
@@ -68,7 +69,16 @@ export default class LoginPage {
     }
 
     loginFailed(message) {
-        alert(message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Gagal',
+            text: message,
+            confirmButtonText: 'Oke',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('User acknowledged the error.');
+            }
+        });
     }
 
     showSubmitLoadingButton() {

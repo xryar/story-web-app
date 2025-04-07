@@ -116,7 +116,16 @@ export default class DetailPage {
     }
 
     saveToBookmarkFailed(message) {
-        alert(message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Menyimpan',
+            text: message,
+            confirmButtonText: 'Oke',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('User acknowledged the error.');
+            }
+        });
     }
 
     removeFromBookmarkSuccessfully(message) {
@@ -124,7 +133,16 @@ export default class DetailPage {
     }
 
     removeFromBookmarkFailed(message) {
-        alert(message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal menghapus',
+            text: message,
+            confirmButtonText: 'Oke',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('User acknowledged the error.');
+            }
+        });
     }
 
     showStoryDetailLoading() {

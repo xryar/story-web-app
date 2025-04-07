@@ -4,6 +4,7 @@ import Map from "../../utils/map";
 import Camera from "../../utils/camera";
 import {convertBase64ToBlob} from "../../utils";
 import {generateLoaderAbsoluteTemplate} from "../../template";
+import Swal from "sweetalert2";
 
 export default class AddPage {
     #presenter;
@@ -256,7 +257,16 @@ export default class AddPage {
     }
 
     storeFailed(message) {
-        alert(message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Upload Story Gagal',
+            text: message,
+            confirmButtonText: 'Oke',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('User acknowledged the error.');
+            }
+        });
     }
 
     clearForm() {

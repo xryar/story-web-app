@@ -40,7 +40,7 @@
         "sizes": "1080x2280",
         "type": "image/png",
         "from_factor": "narrow"
-    },
+    }
   ],
   "shortcuts": [
     {
@@ -55,6 +55,6 @@
           "sizes": "512x512"
         }
       ]
-    },
+    }
   ]
 }

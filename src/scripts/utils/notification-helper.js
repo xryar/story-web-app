@@ -1,6 +1,7 @@
 import {convertBase64ToUint8Array} from "./index";
 import CONFIG from "../config";
 import {subscribePushNotification, unsubscribePushNotification} from "../data/api";
+import Swal from "sweetalert2";
 
 export function isNotificationAvailable() {
     return 'Notification' in window;
@@ -23,12 +24,20 @@ export async function requestNotificationPermission() {
     const status = await Notification.requestPermission();
 
     if (status === 'denied') {
-        alert('Izin notifikasi ditolak.');
+        await Swal.fire({
+            icon: 'error',
+            title: 'Izin Notifikasi ditolak.',
+            confirmButtonText: 'Oke',
+        })
         return false;
     }
 
     if (status === 'default') {
-        alert('Izin notifikasi ditutup atau diabaikan.');
+        await Swal.fire({
+            icon: 'error',
+            title: 'Izin Notifikasi ditutup atau diabaikan.',
+            confirmButtonText: 'Oke',
+        })
         return false;
     }
 
@@ -57,7 +66,11 @@ export async function subscribe() {
     }
 
     if (await isCurrentPushSubscriptionAvailable()) {
-        alert('Sudah berlangganan push notification.');
+        await Swal.fire({
+            icon: 'info',
+            title: 'Sudah berlangganan push notification.',
+            confirmButtonText: 'Oke',
+        })
         return;
     }
 
@@ -78,17 +91,29 @@ export async function subscribe() {
 
         if (!response.ok) {
             console.error('subscribe response:', response);
-            alert(failureSubscribeMessage);
+            await Swal.fire({
+                icon: 'error',
+                title: failureSubscribeMessage,
+                confirmButtonText: 'Oke',
+            })
 
             await pushSubscription.unsubscribe();
 
             return;
         }
 
-        alert(successSubscribeMessage);
+        await Swal.fire({
+            icon: 'success',
+            title: successSubscribeMessage,
+            confirmButtonText: 'Oke',
+        })
     } catch (error) {
         console.error('subscribe error:', error);
-        alert(failureSubscribeMessage);
+        await Swal.fire({
+            icon: 'error',
+            title: failureSubscribeMessage,
+            confirmButtonText: 'Oke',
+        })
         await pushSubscription.unsubscribe();
     }
 }
@@ -99,25 +124,46 @@ export async function unsubscribe() {
     try {
         const pushSubscription = await getPushSubscription();
         if (!pushSubscription) {
-            alert('Tidak bisa memutus langganan push notification karena belum berlangganan sebelumnya.');
+            await Swal.fire({
+                icon: 'info',
+                title: 'Tidak bisa memutus langganan push notification karena belum berlangganan sebelumnya.',
+                confirmButtonText: 'Oke',
+            })
             return;
         }
         const { endpoint, keys } = pushSubscription.toJSON();
         const response = await unsubscribePushNotification({ endpoint });
         if (!response.ok) {
-            alert(failureUnsubscribeMessage);
+            await Swal.fire({
+                icon: 'error',
+                title: unsubscribePushNotification(),
+                confirmButtonText: 'Oke',
+            })
             console.error('unsubscribe: response:', response);
             return;
         }
         const unsubscribed = await pushSubscription.unsubscribe();
         if (!unsubscribed) {
-            alert(failureUnsubscribeMessage);
+            await Swal.fire({
+                icon: 'error',
+                title: failureUnsubscribeMessage,
+                confirmButtonText: 'Oke',
+            })
             await subscribePushNotification({ endpoint, keys });
             return;
         }
-        alert(successUnsubscribeMessage);
+
+        await Swal.fire({
+            icon: 'success',
+            title: successUnsubscribeMessage,
+            confirmButtonText: 'Oke',
+        })
     } catch (error) {
-        alert(failureUnsubscribeMessage);
+        await Swal.fire({
+            icon: 'error',
+            title: failureUnsubscribeMessage,
+            confirmButtonText: 'Oke',
+        })
         console.error('unsubscribe: error:', error);
     }
 }

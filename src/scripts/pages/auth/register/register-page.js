@@ -1,5 +1,6 @@
 import * as StoriesAPI from "../../../data/api";
 import RegisterPresenter from "./register-presenter";
+import Swal from "sweetalert2";
 
 export default class RegisterPage {
     #presenter = null;
@@ -74,7 +75,16 @@ export default class RegisterPage {
     }
 
     registeredFailed(message) {
-        alert(message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Registrasi Gagal',
+            text: message,
+            confirmButtonText: 'Oke',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('User acknowledged the error.');
+            }
+        });
     }
 
     showSubmitLoadingButton() {
