@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     navigationDrawer: document.getElementById('navigation-drawer'),
     skipLinkButton: document.getElementById('skip-link'),
   });
-  await app.renderPage();
+
+  setTimeout(() => app.renderPage(), 500)
   await registerServiceWorker()
 
   window.addEventListener('hashchange', async () => {
