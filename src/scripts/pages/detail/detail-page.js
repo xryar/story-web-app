@@ -106,7 +106,7 @@ export default class DetailPage {
             generateRemoveStoryButtonTemplate();
 
         document.getElementById('story-detail-remove').addEventListener('click', async () => {
-            await this.#presenter.removeReport();
+            await this.#presenter.removeStory();
             await this.#presenter.showSaveButton();
         });
     }
